@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ManyToAny;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,4 +20,5 @@ public class Course {
     private String description;
 
     private Progress progress;
+    private List<Assignment> assignments;
 }

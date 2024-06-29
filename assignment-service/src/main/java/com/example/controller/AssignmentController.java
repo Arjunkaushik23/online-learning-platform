@@ -26,4 +26,24 @@ public class AssignmentController {
     public ResponseEntity<List<Assignment>> getAllAssignments() {
         return ResponseEntity.ok(assignmentService.getAllAssignments());
     }
+
+    @GetMapping("/courses/{courseId}")
+    public ResponseEntity<List<Assignment>> getAllAssignmentsByCourseId(@PathVariable Long courseId) {
+        return ResponseEntity.ok(assignmentService.getAllAssignmentsByCourseId(courseId));
+    }
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<List<Assignment>> getAllAssignmentsByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(assignmentService.getAllAssignmentsByUserId(userId));
+    }
+
+    @GetMapping("/{assignmentId}")
+    public ResponseEntity<Assignment> getByAssignmentId(@PathVariable Long assignmentId) {
+        return ResponseEntity.ok(assignmentService.getByAssignmentId(assignmentId));
+    }
+
+    @GetMapping("/progress/{progressId}")
+    public ResponseEntity<List<Assignment>> getByAssignmentByProgressId(@PathVariable Long progressId) {
+        return ResponseEntity.ok(assignmentService.getByAssignmentByProgressId(progressId));
+    }
 }

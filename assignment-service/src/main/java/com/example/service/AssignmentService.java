@@ -22,4 +22,20 @@ public class AssignmentService {
     public List<Assignment> getAllAssignments() {
         return assignmentRepository.findAll();
     }
+
+    public List<Assignment> getAllAssignmentsByCourseId(Long courseId) {
+        return assignmentRepository.findByCourseId(courseId);
+    }
+
+    public List<Assignment> getAllAssignmentsByUserId(Long userId) {
+        return assignmentRepository.findByUserId(userId);
+    }
+
+    public Assignment getByAssignmentId(Long assignmentId) {
+        return assignmentRepository.findById(assignmentId).orElseThrow();
+    }
+
+    public List<Assignment> getByAssignmentByProgressId(Long progressId) {
+        return assignmentRepository.findByProgressId(progressId);
+    }
 }
