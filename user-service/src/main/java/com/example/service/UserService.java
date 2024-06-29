@@ -9,6 +9,7 @@ import com.example.entity.Course;
 import com.example.entity.Progress;
 import com.example.entity.User;
 import com.example.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,16 +22,19 @@ public class UserService {
     private final CourseClient courseClient;
     private final ProgressClient progressClient;
     private final AssignmentClient assignmentClient;
+    private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository, CourseClient courseClient,
-                       ProgressClient progressClient, AssignmentClient assignmentClient) {
+                       ProgressClient progressClient, AssignmentClient assignmentClient, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.courseClient = courseClient;
         this.progressClient = progressClient;
         this.assignmentClient = assignmentClient;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
