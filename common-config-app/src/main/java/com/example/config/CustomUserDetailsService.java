@@ -17,18 +17,12 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private UserClient userClient;
-    private PasswordEncoder passwordEncoder;
 
     private final static Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
     @Autowired
     public void setUserClient(UserClient userClient) {
         this.userClient = userClient;
-    }
-
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -41,7 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         logger.info("username is: {}", userResponse.getUsername());
 
         return User.withUsername(userResponse.getUsername())
-                .password(passwordEncoder.encode(userResponse.getPassword()))
+                .password(userResponse.getPassword())
                 .roles(userResponse.getRole())
                 .build();
 

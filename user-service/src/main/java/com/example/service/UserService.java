@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -43,7 +44,22 @@ public class UserService {
     }
 
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+
+        List<User> users = userRepository.findAll();
+
+        return users.stream().peek(user -> {
+            List<Course> courses = courseClient.getCourseByUserId(user.getId());
+
+            courses.forEach(course -> {
+                Progress progress = progressClient.getProgressByCourseId(course.getId());
+                course.setProgress(progress);
+
+                List<Assignment> assignments = assignmentClient.getAssignmentByCourseId(course.getId());
+                course.setAssignments(assignments);
+            });
+
+            user.setCourses(courses);
+        }).toList();
     }
 
     public User getUserById(Long userId) {
